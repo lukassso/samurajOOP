@@ -15,15 +15,14 @@ export class Counter extends UI {
   }
 
   increment() {
-    this.value ++;
-    this.updateValue();
+    this.value++;
+    this.#updateValue();
   }
    decrement() {
-    this.value --;
-    this.updateValue();
+    this.value--;
+    this.#updateValue();
    }
     
- 
   #updateValue() {
     this.#element.textContent = this.value
   }
