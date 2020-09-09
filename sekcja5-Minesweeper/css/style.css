@@ -165,6 +165,7 @@ html {
   width: var(--cell-size);
   height: var(--cell-size);
   cursor: pointer;
+  /* background: 2rem center no-repeat; */
   background-size: 2rem;
   background-position: center;
   background-repeat: no-repeat;

@@ -18,4 +18,16 @@ export class Cell extends UI {
     `<div class="cell border border--concave" data-cell data-x="${this.x}" data-y="${this.y}"></div>`;
     return element;
   }
+
+  toggleFlag() {
+    this.isFlagged = !this.isFlagged;
+    this.element.classList.toggle('cell--is-flag')
+  }
+
+  revealCell(){
+    this.isReveal = true;
+    this.element.classList.remove('border--concave');
+    this.element.classList.add('border--revealed')
+  }
+
 }
