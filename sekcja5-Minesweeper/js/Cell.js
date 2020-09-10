@@ -27,7 +27,15 @@ export class Cell extends UI {
   revealCell(){
     this.isReveal = true;
     this.element.classList.remove('border--concave');
-    this.element.classList.add('border--revealed')
+    this.element.classList.add('border--revealed');
+
+    if(this.isMine){
+      this.element.classList.add('cell--is-mine');
+    }
+  }
+
+  addMine(){
+    this.isMine = true;
   }
 
 }
