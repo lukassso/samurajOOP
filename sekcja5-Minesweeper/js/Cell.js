@@ -1,4 +1,4 @@
-import {UI} from './UI.js'
+import { UI } from "./UI.js";
 
 export class Cell extends UI {
   constructor(x, y) {
@@ -14,28 +14,31 @@ export class Cell extends UI {
   }
 
   createElement() {
-    const element = 
-    `<div class="cell border border--concave" data-cell data-x="${this.x}" data-y="${this.y}"></div>`;
+    const element = `<div class="cell border border--concave" data-cell data-x="${this.x}" data-y="${this.y}"></div>`;
     return element;
   }
 
   toggleFlag() {
     this.isFlagged = !this.isFlagged;
-    this.element.classList.toggle('cell--is-flag')
+    this.element.classList.toggle("cell--is-flag");
   }
 
-  revealCell(){
+  revealCell() {
     this.isReveal = true;
-    this.element.classList.remove('border--concave');
-    this.element.classList.add('border--revealed');
+    this.element.classList.remove("border--concave");
+    this.element.classList.add("border--revealed");
 
-    if(this.isMine){
-      this.element.classList.add('cell--is-mine');
+    if (this.isMine) {
+      this.element.classList.add("cell--is-mine");
+      return;
+    }
+    if (this.value) {
+      this.element.textContent = this.value;
+      this.element.classList.add(`cell-info-${this.value}`);
     }
   }
 
-  addMine(){
+  addMine() {
     this.isMine = true;
   }
-
 }
