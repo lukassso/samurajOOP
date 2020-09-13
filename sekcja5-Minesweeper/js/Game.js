@@ -34,6 +34,8 @@ class Game extends UI {
 
   #cells = [];
   #cellsElements = null;
+  #cellsToReveal = 0;
+  #revealdCells = 0;
 
   #board = null;
 
@@ -63,7 +65,9 @@ class Game extends UI {
     this.#numberOfMines = mines;
 
     this.#counter.setValue(this.#numberOfMines);
-    this.#timer.startTimer();
+    this.#timer.resetTimer();
+
+    this.#cellsToReveal = this.#numberOfCols * this.#numberOfRows - this.#numberOfMines;
 
     this.#setStyles();
 
@@ -157,6 +161,13 @@ class Game extends UI {
     });
   }
 
+  #removeCellsEventListeners() {
+    this.#cellsElements.forEach((element) => {
+      element.removeEventListener("click", this.#handleCellClick);
+      element.removeEventListener("contextmenu", this.#handleCellContextMenu);
+    })
+  }
+
   #addButtonsEventListeners() {
     this.#buttons.easy.addEventListener('click', () =>
       this.#handleNewGameClick(
@@ -189,10 +200,15 @@ class Game extends UI {
     cols = this.#numberOfCols,
     mines = this.#numberOfMines
   ) {
+    this.#removeCellsEventListeners();
     this.#newGame(rows, cols, mines);
   }
 
   #renderBoard() {
+    // this.#board.innerHTML = ''
+    while(this.#board.firstChild){
+      this.#board.removeChild(this.#board.lastChild)
+    }
     this.#cells.flat().forEach((cell) => {
       this.#board.insertAdjacentHTML("beforeend", cell.createElement());
       cell.element = cell.getElement(cell.selector);
@@ -207,6 +223,10 @@ class Game extends UI {
     }
     // cell.revealCell();
     this.#setCellValue(cell);
+
+    if(this.#revealdCells === this.#cellsToReveal) {
+      this.#endGame(true);
+    }
   }
 
   #revealMines() {
@@ -233,6 +253,8 @@ class Game extends UI {
     }
     cell.value = minesCount;
     cell.revealCell();
+
+    this.#revealdCells++;
 
     if (!cell.value) {
       for (
