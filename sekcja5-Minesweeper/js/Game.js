@@ -3,6 +3,7 @@ import { UI } from "./UI.js";
 import { Counter } from "./Counter.js";
 import { Timer } from "./Timer.js";
 import { ResetButton } from "./ResetButton.js";
+import {Modal} from "./Modal.js";
 
 class Game extends UI {
   #config = {
@@ -25,6 +26,7 @@ class Game extends UI {
 
   #counter = new Counter();
   #timer = new Timer();
+  #modal = new Modal();
 
   #isGameFinished = false;
 
@@ -77,6 +79,11 @@ class Game extends UI {
 
     this.#cellsElements = this.getElements(this.UiSelectors.cell);
 
+    this.#buttons.reset.changeEmotion('neutral');
+
+    this.#isGameFinished = false;
+    this.#revealdCells = 0;
+
     this.#addCellsEventListeners();
   }
 
@@ -84,9 +91,23 @@ class Game extends UI {
     this.#isGameFinished = true;
     this.#timer.stopTimer();
 
+    this.#modal.buttonText = 'Close';
+
     if (!isWin) {
       this.#revealMines();
+      this.#modal.infoText = 'You lost, try one more time!';
+      this.#buttons.reset.changeEmotion('negative');
+      this.#modal.setText();
+      this.#modal.toggleModal();
+      return
     }
+
+     this.#modal.infoText = this.#timer.numberOfSeconds < this.#timer.numberOfSeconds ? 
+     `You win, good job! It took you ${this.#timer.numberOfSeconds} sec, congrats!` : 'You won, congrats!'
+      this.#buttons.reset.changeEmotion('positive');
+      this.#modal.setText();
+      this.#modal.toggleModal();
+
   }
 
   #handleElements() {
@@ -169,6 +190,7 @@ class Game extends UI {
   }
 
   #addButtonsEventListeners() {
+    this.#buttons.modal.addEventListener('click', this.#modal.toggleModal);
     this.#buttons.easy.addEventListener('click', () =>
       this.#handleNewGameClick(
         this.#config.easy.rows,
@@ -224,7 +246,7 @@ class Game extends UI {
     // cell.revealCell();
     this.#setCellValue(cell);
 
-    if(this.#revealdCells === this.#cellsToReveal) {
+    if(this.#revealdCells === this.#cellsToReveal && !this.#isGameFinished) {
       this.#endGame(true);
     }
   }
