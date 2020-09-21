@@ -21,4 +21,5 @@ export class Common {
       ? element.classList.remove(HIDDEN_CLASS)
       : element.classList.add(HIDDEN_CLASS);
   }
+  
 }
