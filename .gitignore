@@ -1,4 +1,7 @@
-sekcja5-Saper/
-sekcja6-Diamonds/
-sekcja8-Spaceship/
-sekcja9-Arkanoid/
+# misc
+yarn.lock
+.yarn-integrity
+
+# dependencies
+/temporays
+/node_moduless
