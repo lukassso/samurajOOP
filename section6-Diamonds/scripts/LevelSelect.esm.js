@@ -1,6 +1,6 @@
 import {Common, HIDDEN_SCREEN, VISIBLE_SCREEN } from './Common.esm.js';
 import {canvas} from './Canvas.esm.js';
-
+import {DATA_LOADED_EVENT_NAME, loader} from './Loader.esm.js'
 const gameLevels = [
   {
     level: 1,
@@ -37,7 +37,13 @@ class LevelSelect extends Common {
     this.changeVisibilityScreen(this.element, HIDDEN_SCREEN);
     // show board with game
     this.changeVisibilityScreen(canvas.element, VISIBLE_SCREEN);
+    this.loadLevel(event.currentTarget.value);
 
+  }
+
+  loadLevel(level) {
+    const background = loader.loadImage('images/levelbackground.png');
+    window.addEventListener(DATA_LOADED_EVENT_NAME, () => console.log('all media loaded'))
   }
 
 }
