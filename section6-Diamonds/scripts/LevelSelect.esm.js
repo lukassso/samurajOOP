@@ -1,17 +1,21 @@
 import {Common, HIDDEN_SCREEN, VISIBLE_SCREEN } from './Common.esm.js';
 import {canvas} from './Canvas.esm.js';
 import {DATA_LOADED_EVENT_NAME, loader} from './Loader.esm.js'
-const gameLevels = [
-  {
-    level: 1,
-  },
-  {
-    level: 2,
-  },
-  {
-    level: 3,
-  },
-]
+import {game} from './Game.esm.js'
+import { gameLevels } from './gameLevels.esm.js';
+import { media } from './Media.esm.js';
+
+// const gameLevels = [
+//   {
+//     level: 1,
+//   },
+//   {
+//     level: 2,
+//   },
+//   {
+//     level: 3,
+//   },
+// ]
 
 const LEVEL_SELECT_BUTTON_ID = 'level-select__button';
 const LEVEL_SELECT_ID = 'js-level-select-screen';
@@ -42,8 +46,8 @@ class LevelSelect extends Common {
   }
 
   loadLevel(level) {
-    const background = loader.loadImage('images/levelbackground.png');
-    window.addEventListener(DATA_LOADED_EVENT_NAME, () => console.log('all media loaded'))
+    media._backgroundImage = loader.loadImage('images/levelbackground.png');
+    window.addEventListener(DATA_LOADED_EVENT_NAME, () => game.playLevel(level))
   }
 
 }

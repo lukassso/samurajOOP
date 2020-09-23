@@ -4,6 +4,9 @@ export const VISIBLE_SCREEN = true;
 
 export class Common {
   constructor(elementId) {
+    if (typeof elementId === 'undefined') {
+      return;
+    }
     this.element = this.bindToElement(elementId);
   }
 
@@ -21,5 +24,5 @@ export class Common {
       ? element.classList.remove(HIDDEN_CLASS)
       : element.classList.add(HIDDEN_CLASS);
   }
-  
+
 }
