@@ -4,7 +4,7 @@ const LOADER_ELEMENT_ID = "js-loading-screen";
 const LOAD_CURRENT_ID = "js-loading-screen-current";
 const LOAD_TOTAL_ID = "js-loading-screen-total";
 
-export const DATA_LOADED_EVENT_NAME = 'data-loaded';
+export const DATA_LOADED_EVENT_NAME = "data-loaded";
 class Loader extends Common {
   constructor() {
     super(LOADER_ELEMENT_ID);
@@ -25,7 +25,7 @@ class Loader extends Common {
     const image = new Image();
 
     image.src = imageURL;
-    image.addEventListener("load", event => this.itemLoaded(event), false);
+    image.addEventListener("load", (event) => this.itemLoaded(event), false);
 
     return image;
   }
@@ -38,7 +38,7 @@ class Loader extends Common {
     if (this.loadedCounter === this.totalCounter) {
       this.clearFlags();
       this.changeVisibilityScreen(this.element, HIDDEN_SCREEN);
-      window.dispatchEvent(new CustomEvent(DATA_LOADED_EVENT_NAME))
+      window.dispatchEvent(new CustomEvent(DATA_LOADED_EVENT_NAME));
     }
   }
 

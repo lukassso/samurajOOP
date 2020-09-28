@@ -1,6 +1,5 @@
 import { Common } from "./Common.esm.js";
 import { media } from "./Media.esm.js";
-import { game } from "./Game.esm.js";
 
 const GAME_SCREEN_ID = "js-game-screen";
 
@@ -40,9 +39,11 @@ class Canvas extends Common {
   drawPointsToWin(pointsToWin) {
     this.context.fillText(`${pointsToWin}`, 520, 92);
   }
+
   drawPlayersPoints(playerPoints) {
     this.context.fillText(`${playerPoints}`, 520, 163);
   }
+
   drawLeftMovement(leftMovement) {
     this.context.fillText(`${leftMovement}`, 520, 234);
   }

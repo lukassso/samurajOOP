@@ -4,16 +4,30 @@ class Media {
     this._diamondsSprite = null;
   }
 
-set bakgroundImage(imageObject) {
-  if(!imageObject instanceof Image){
-    return;
+  set backgroundImage(imageObject) {
+    if (!imageObject instanceof Image) {
+      return;
+    }
+    this._backgroundImage = imageObject;
   }
-  this._bakgroundImage = imageObject;
-}
- 
- get backgroundImage(){
-   return this._backgroundImage;
- }
+
+  get backgroundImage() {
+    return this._backgroundImage;
+  }
+
+  set diamondsSprite(imageObject) {
+    if (!imageObject instanceof Image) {
+      return;
+    }
+
+    this._diamondsSprite = imageObject;
+  }
+
+  get diamondsSprite() {
+    console.log(this._diamondsSprite);
+
+    return this._diamondsSprite;
+  }
 }
 
 export const media = new Media();
