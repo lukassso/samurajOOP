@@ -1,17 +1,19 @@
 import { canvas } from "./Canvas.esm.js";
 import { Common, VISIBLE_SCREEN } from "./Common.esm.js";
 import { gameLevels } from "./gameLevels.esm.js";
-import { DATA_LOADED_EVENT_NAME, loader } from "./Loader.esm.js";
-import { Diamond } from "./Diamond.esm.js";
+import { DATA_LOADED_EVENT_NAME } from "./Loader.esm.js";
+// import { Diamond } from "./Diamond.esm.js";
 import { media } from "./Media.esm.js";
+import {GameState} from "./GameState.esm.js";
+import { mouseController } from './MouseController.esm.js'
 
 
 
-const gameState = {
-  pointsToWin: 7000,
-  getPlayerPoints: () => 1000,
-  getLeftMovement: () => 30,
-};
+// const gameState = {
+//   pointsToWin: 7000,
+//   getPlayerPoints: () => 1000,
+//   getLeftMovement: () => 30,
+// };
 
 class Game extends Common {
   constructor() {
@@ -28,10 +30,20 @@ class Game extends Common {
 
   animate() {
     // console.log('Lets game')
+    this.handleMouseState();
     canvas.drawGameOnCanvas(gameState);
     this.diamond.draw();
     this.animationFrame = window.requestAnimationFrame(() => this.animate());
   }
+
+  handleMouseState() {
+    const isSwaping =  !this.gameState.getIsSwaping()
+    const isMoving =  !this.gameState.getIsMoving()
+    if (mouseController.clicked && isSwaping && isMoving ){
+      mouseController.state++;
+    }
+  }
+
 }
 
 export const game = new Game();
