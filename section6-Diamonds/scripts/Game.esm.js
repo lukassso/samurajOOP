@@ -2,7 +2,7 @@ import { canvas } from "./Canvas.esm.js";
 import { Common, VISIBLE_SCREEN } from "./Common.esm.js";
 import { gameLevels } from "./gameLevels.esm.js";
 import { DATA_LOADED_EVENT_NAME } from "./Loader.esm.js";
-// import { Diamond } from "./Diamond.esm.js";
+import { Diamond } from "./Diamond.esm.js";
 import { media } from "./Media.esm.js";
 import { GameState } from "./GameState.esm.js";
 import { mouseController } from "./MouseController.esm.js";
@@ -35,7 +35,7 @@ class Game extends Common {
     this.handleMouseState();
     this.handleMouseClick();
     this.moveDiamonds()
-    canvas.drawGameOnCanvas(gameState);
+    canvas.drawGameOnCanvas(this.gameState);
     this.diamond.draw();
     this.animationFrame = window.requestAnimationFrame(() => this.animate());
   }
@@ -134,6 +134,16 @@ class Game extends Common {
       }
        
     })
+  }
+
+  revertSwap() {
+    if(this.gameState.getIsSwaping() && !this.gameState.getIsMoving()){
+      // if(!this.scores){
+        // this.swapDiamonds();
+        // this.gameState.increasePointsMovement();
+      // }
+      this.gameState.setIsSwaping(false);
+    }
   }
 
   swap(firstDiamond, secondDiamond) {
