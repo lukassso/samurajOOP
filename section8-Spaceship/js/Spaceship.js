@@ -1,13 +1,13 @@
-import {Missile} from './Missile.js'
+import { Missile } from "./Missile.js";
 
 export class Spaceship {
   missiles = [];
-  #modifier = 5;
+  #modifier = 10;
   #leftArrow = false;
   #rightArrow = false;
   constructor(element, container) {
     this.element = element;
-    this.container = container; 
+    this.container = container;
   }
   init() {
     // console.log('hello')
@@ -38,7 +38,7 @@ export class Spaceship {
     window.addEventListener("keyup", ({ keyCode }) => {
       switch (keyCode) {
         case 32:
-          this.#shot()
+          this.#shot();
           break;
         case 37:
           this.#leftArrow = false;
@@ -54,11 +54,11 @@ export class Spaceship {
     requestAnimationFrame(this.#gameLoop);
   };
   #whatKey() {
-    if (this.#leftArrow && this.#getPosition() > 0) {
+    if (this.#leftArrow && this.#getPosition() > 12) {
       this.element.style.left = `${
         parseInt(this.element.style.left, 10) - this.#modifier
       }px`;
-    } else if (this.#rightArrow & (this.#getPosition() < window.innerWidth)) {
+    } else if (this.#rightArrow & (this.#getPosition() +12  < window.innerWidth)) {
       this.element.style.left = `${
         parseInt(this.element.style.left, 10) + this.#modifier
       }px`;
@@ -66,12 +66,11 @@ export class Spaceship {
   }
   #shot() {
     const missile = new Missile(
-      this.#getPosition(), 
-      this.element.offsetTop, 
+      this.#getPosition(),
+      this.element.offsetTop,
       this.container
     );
     missile.init();
     this.missiles.push(missile);
-
   }
 }
