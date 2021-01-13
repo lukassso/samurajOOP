@@ -11,13 +11,15 @@ export class Enemy {
     this.#updatePosition();
   }
   #setEnemy(){
-    this.element.classList.add('enemy');
+    this.element.classList.add(this.enemyClass);
     this.container.appendChild(this.element);
     this.element.style.top = '0px';
     this.element.style.left = `${this.#randomPosition()}px`;
   }
   #randomPosition(){
-    return Math.floor(Math.random() * window.innerWidth - this.element.offsetWidth)
+    return Math.floor(
+      Math.random() * (window.innerWidth - this.element.offsetWidth),
+    )
   }
   #updatePosition(){
     this.interval = setInterval(
